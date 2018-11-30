@@ -5,12 +5,31 @@ num = 0
 Saga.transaction do |s|
   s.run(
     name: 'Add',
-    transaction: ->(){
+    perform: ->(){
       num += 10
-      raise "Error"
     },
-    compensation:->(side_effect){
+    undo:->(side_effect){
       num -= 10
+    }
+  );
+
+  s.run(
+    name: 'Multiply',
+    perform: ->(){
+      num *= 2
+    },
+    undo:->(side_effect){
+      num /= 2
+    }
+  );
+
+  s.run(
+    name: 'Subtract',
+    perform: ->(){
+      num -= 7
+    },
+    undo:->(side_effect){
+      num += 7
     }
   );
 
