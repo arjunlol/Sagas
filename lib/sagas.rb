@@ -1,5 +1,3 @@
-require 'pry'
-
 class Effect
   attr_reader :name, :perform, :undo
   attr_accessor :side_effect
