@@ -1,4 +1,6 @@
 # Sagas
+[![Gem Version](https://badge.fury.io/rb/sagas.svg)](https://badge.fury.io/rb/sagas)
+
 A dependency-free library to manage distributed transactions in Ruby
 
 Based on the sagas design pattern (http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf)
