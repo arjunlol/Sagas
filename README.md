@@ -1,5 +1,7 @@
 # Sagas
 [![Gem Version](https://badge.fury.io/rb/sagas.svg)](https://badge.fury.io/rb/sagas)
+[![Build Status](https://travis-ci.org/arjunlol/Sagas.svg?branch=master)](https://travis-ci.org/arjunlol/Sagas)
+[![Code Climate](https://img.shields.io/codeclimate/maintainability/arjunlol/Sagas.svg)](https://codeclimate.com/github/arjunlol/Sagas/maintainability)
 
 A dependency-free library to manage distributed transactions in Ruby
 
