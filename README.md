@@ -1,4 +1,5 @@
 # Sagas
+
 [![Gem Version](https://badge.fury.io/rb/sagas.svg)](https://badge.fury.io/rb/sagas)
 [![Build Status](https://travis-ci.org/arjunlol/Sagas.svg?branch=master)](https://travis-ci.org/arjunlol/Sagas)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/arjunlol/Sagas.svg)](https://codeclimate.com/github/arjunlol/Sagas/maintainability)
@@ -9,27 +10,32 @@ Based on the sagas design pattern (http://www.cs.cornell.edu/andru/cs711/2002fa/
 
 ## Contents
 
-* [Installation](#installation)
-* [Using Sagas](#using-sagas)
-* [License](#license)
-
+- [Installation](#installation)
+- [Using Sagas](#using-sagas)
+- [License](#license)
 
 ## Installation
 
 Add this line to your application's Gemfile:
+
 ```
 gem 'sagas'
 ```
+
 And then execute:
+
 ```
 $ bundle
 ```
+
 Or Install locally:
+
 ```
 $ gem install sagas
 ```
 
 ## Using Sagas
+
 ```
 require 'sagas'
 
@@ -38,39 +44,40 @@ num = 0
 Saga.transaction do |s|
   s.run(
     name: 'Add',
-    perform: ->(){
+    perform: ->() {
       num += 10
     },
-    undo:->(side_effect){
+    undo:->(side_effect) {
       num -= 10
     }
-  );
+  )
 
   s.run(
     name: 'Multiply',
-    perform: ->(){
+    perform: ->() {
       num *= 2
       raise "error"
     },
-    undo:->(side_effect){
+    undo:->(side_effect) {
       num /= 2
     }
-  );
+  )
 
   s.run(
     name: 'Subtract',
-    perform: ->(){
+    perform: ->() {
       num -= 7
     },
-    undo:->(side_effect){
+    undo:->(side_effect) {
       num += 7
     }
-  );
+  )
 
-  puts num #outputs 0 (will perform all undo effects up to the exception abort transaction) 
+  puts num #outputs 0 (will perform all undo effects up to the exception abort transaction)
 end
 
 ```
 
-## License 
+## License
+
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
