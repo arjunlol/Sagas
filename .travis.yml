@@ -1,2 +1,10 @@
 sudo: false
 language: ruby
+deploy:
+  provider: rubygems
+  api_key:
+    secure: eNuadHXEmxlELJ1zmgbk+c+n4XCc9ekKy8hTsLrPbvNxqs74VEs4srnMEDbHOnI89NAUTKqQtgIFRGuLQWbjvTnK7+GTE+o/hPQVffNCHN1ImGwxtbDfHqew0RGl4nxhgWqDbeUa5LLs18cD1+Nq/4GdLcIEhJfmd1oo6ruHP3aVp/zsvYky9QgQv8XmrSERU09b+kRupH5iF+IU5LapjhMjPTw1zNie87X4eAMCRr1y3ggVfHLeqmfinoK0/SBJgYFX/Rw+k7gnsYD1jwqb7hqLgZ/b7GjnH7E3ksy2TlhvEreYgy0opB10adYXmZQfuHe2y7pqvjmpVrfRkgQb98deghS4nXKer3HVjDXm53PZzh5UVrIMubzEqEXgRD/cIayKziYOsxDWLvJz7Z5NxI1SxN0zpOcj67ULOkLkihesKZPWBwL+PfGX58eeEBXZCZXjQyin0n3weyq4MwTxdVBMjuYbsN+DMhFmOhOHRnJ/ISbna7nEAaa7whODr2vUlvnvqBge03vOHH2mWa7o0+pn2uDsibTfeeeqvNL1xmgmYzShTrB+QCCRFhTN3RmNcs76Wzs28BQTpAvxdiZAFonVPy+DNaBhGVpDqA+nJaWhsCxxFfKUqkwoX8Rpin/z8AU5MUAR79/YN/MgfFjjSMyGR/qtnIj3nake0On7PAg=
+  gem: Sagas
+  on:
+    tags: true
+    repo: arjunlol/Sagas
