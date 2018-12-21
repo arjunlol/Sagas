@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'sagas'
   s.version     = '0.0.2'
-  s.date        = '2018-11-30'
+  s.date        = '2018-12-21'
   s.summary     = "A Ruby implementation of the Saga design pattern"
   s.description = "A dependency-free library to manage distributed transactions in Ruby"
   s.authors     = ["Victor Yu", "Arjun Lall"]
