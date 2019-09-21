@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Sagas::Transaction do
   let(:transaction) { Sagas.transaction }
 
@@ -64,6 +62,7 @@ RSpec.describe Sagas::Transaction do
           end
         end.to output(a_string_including('undoing')).to_stdout
       end
+
       it 'rolls back all commands in transaction' do
         expect do
           exceptions_to_catch = [StandardError]
@@ -88,6 +87,42 @@ RSpec.describe Sagas::Transaction do
             end
           end
         end.to output(a_string_including('undoing first command', 'undoing second command')).to_stdout
+      end
+
+      it 'stops transaction execution on exception catch' do
+        num = 0
+        exceptions_to_catch = [StandardError]
+        transaction.run_command(name: 'Add', catch_exceptions: exceptions_to_catch) do
+          perform do
+            num += 10
+          end
+
+          undo do
+            num -= 10
+          end
+        end
+        transaction.run_command(name: 'Multiply', catch_exceptions: exceptions_to_catch) do
+          perform do
+            num *= 2
+            raise StandardError.new('Error while trying to perform')
+          end
+
+          undo do
+            num /= 2
+          end
+        end
+        transaction.run_command(name: 'Subtract', catch_exceptions: exceptions_to_catch) do
+          perform do
+            num -= 7
+          end
+
+          undo do
+            num += 7
+          end
+        end
+
+        expect(num).to eq(0)
+        expect(transaction.commands.map(&:name)).to eq(['Subtract'])
       end
     end
   end

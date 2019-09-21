@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.3.4'
 
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "pry-byebug"
   s.add_development_dependency "bundler"
   s.add_development_dependency "rake", "~> 12.3"
   s.add_development_dependency "rspec", "~> 3.8"

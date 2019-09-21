@@ -9,7 +9,7 @@ module Sagas
       @transaction = transaction
       instance_eval(&block) if block_given?
       transaction.commands.push(self)
-      execute
+      execute unless transaction.halted?
     end
 
     def perform(&block)

@@ -1,10 +1,11 @@
 module Sagas
   class Transaction
 
-    attr_reader :commands
+    attr_reader :commands, :halted
 
     def initialize
       @commands = []
+      @halted = false
     end
 
     def run_command(name: nil, catch_exceptions: [], &block)
@@ -14,8 +15,13 @@ module Sagas
     end
 
     def roll_back
-      @commands.reverse.each { |command| command.do_undo.call }
-      @commands.clear
+      commands.reverse.each { |command| command.do_undo.call }
+      commands.clear
+      @halted = true
+    end
+
+    def halted?
+      halted
     end
   end
 end

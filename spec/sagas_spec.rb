@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Sagas do
   describe '#transaction' do
     it 'initializes a transaction' do
