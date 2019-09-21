@@ -2,36 +2,38 @@ require 'sagas'
 
 num = 0
 
-Saga.transaction do |s|
-  s.run(
-    name: 'Add',
-    perform: ->() {
-      num += 10
-    },
-    undo:->(side_effect) {
-      num -= 10
-    }
-  )
+transaction = Sagas.transaction
 
-  s.run(
-    name: 'Multiply',
-    perform: ->() {
-      num *= 2
-    },
-    undo:->(side_effect){
-      num /= 2
-    }
-  )
+exceptions_to_catch = [StandardError]
+transaction.run_command(name: 'Add', catch_exceptions: exceptions_to_catch) do
+  perform do
+    num += 10
+  end
 
-  s.run(
-    name: 'Subtract',
-    perform: ->() {
-      num -= 7
-    },
-    undo:->(side_effect) {
-      num += 7
-    }
-  )
-
-  puts num
+  undo do
+    num -= 10
+  end
 end
+
+transaction.run_command(name: 'Multiply', catch_exceptions: exceptions_to_catch) do
+  perform do
+    num *= 2
+    raise StandardError.new('Error while trying to perform')
+  end
+
+  undo do
+    num /= 2
+  end
+end
+
+transaction.run_command(name: 'Subtract', catch_exceptions: exceptions_to_catch) do
+  perform do
+    num -= 7
+  end
+
+  undo do
+    num += 7
+  end
+end
+
+# num => 0
