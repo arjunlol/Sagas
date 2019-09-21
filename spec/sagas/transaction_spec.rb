@@ -64,6 +64,31 @@ RSpec.describe Sagas::Transaction do
           end
         end.to output(a_string_including('undoing')).to_stdout
       end
+      it 'rolls back all commands in transaction' do
+        expect do
+          exceptions_to_catch = [StandardError]
+          transaction.run_command(name: 'First command', catch_exceptions: exceptions_to_catch) do
+            perform do
+              puts 'performing first command'
+            end
+
+            undo do
+              puts 'undoing first command'
+            end
+          end
+
+          transaction.run_command(name: 'Second command', catch_exceptions: exceptions_to_catch) do
+            perform do
+              puts 'performing second command'
+              raise StandardError.new('Error while trying to perform')
+            end
+
+            undo do
+              puts 'undoing second command'
+            end
+          end
+        end.to output(a_string_including('undoing first command', 'undoing second command')).to_stdout
+      end
     end
   end
 end

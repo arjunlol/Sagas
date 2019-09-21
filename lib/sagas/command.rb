@@ -1,12 +1,14 @@
 module Sagas
   class Command
 
-    attr_accessor :name, :catch_exceptions, :do_perform, :do_undo
+    attr_accessor :name, :catch_exceptions, :do_perform, :do_undo, :transaction
 
-    def initialize(name: nil, catch_exceptions: [], &block)
+    def initialize(name: nil, catch_exceptions: [], transaction: nil, &block)
       @name = name
       @catch_exceptions = catch_exceptions
+      @transaction = transaction
       instance_eval(&block) if block_given?
+      transaction.commands.push(self)
       execute
     end
 
@@ -22,7 +24,7 @@ module Sagas
       begin
         do_perform.call
       rescue *catch_exceptions
-        do_undo.call
+        transaction.roll_back
       end
     end
   end
