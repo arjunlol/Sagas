@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/arjunlol/Sagas.svg?branch=master)](https://travis-ci.org/arjunlol/Sagas)
 [![Code Climate](https://img.shields.io/codeclimate/maintainability/arjunlol/Sagas.svg)](https://codeclimate.com/github/arjunlol/Sagas/maintainability)
 
-A dependency-free library to manage distributed transactions in Ruby
+A dependency-free library to manage transactions in Ruby
 
 Based on the sagas design pattern (http://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf)
 
